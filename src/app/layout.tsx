@@ -13,10 +13,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rileys Digital Studio",
-  description: "Crafting solutions that matter",
+  title: "Riley's Digital Studio | Web Development & Digital Solutions in Kenya",
+  description: "Riley's Digital Studio builds modern websites, digital platforms, and software solutions for businesses in Kenya. Let’s craft solutions that matter for your business.",
   verification: {
     google: "erzQdPTcB7fkejY7SHBV7Qw91gp7P-42GkKTNDHh18o",
+  },
+  openGraph: {
+    title: "Riley's Digital Studio",
+    description: "Modern web development and digital solutions in Kenya",
+    url: "https://rileys-digital-studio.vercel.app",
+    images: ["/logoh.webp"], // optional, replace with a real image if you have one
+    siteName: "Riley's Digital Studio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Riley's Digital Studio",
+    description: "Modern web development and digital solutions in Kenya",
+    images: ["/logoh.webp"], // optional
   },
 };
 
