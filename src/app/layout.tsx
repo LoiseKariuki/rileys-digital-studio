@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Rileys Digital Studio",
   description: "Crafting solutions that matter",
   verification: {
-    google: "googlec4919e3c3df4fa60.html",
+    google: "googlec4919e3c3df4fa60",
   },
 };
 
