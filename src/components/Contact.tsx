@@ -10,22 +10,200 @@ export default function Contact() {
     name: "",
     email: "",
     service: "",
-    otherService: "",
+    specificService: "",
+    specificServiceOther: "",       // description when "Other" is chosen in specific service
+    otherService: "",               // when main service is "Other"
     description: "",
     budget: "",
-    otherBudget: "",
+    otherBudget: "",                 // (kept for compatibility, but no longer used)
+    approximateBudget: "",           // approximate budget when "Not sure yet" is chosen
   });
+
+  // Specific service options for each main service (including "Other")
+  const serviceExamples: Record<string, string[]> = {
+    "Website Development": [
+      "Business Website",
+      "Portfolio Website",
+      "Landing Page",
+      "E-commerce Website",
+      "Booking Website",
+      "Website Redesign",
+      "Other",
+    ],
+    "Web Application Development": [
+      "Booking System",
+      "Admin Dashboard",
+      "Client Management System",
+      "SaaS Platform",
+      "Internal Business Tool",
+      "Custom Business System",
+      "Other",
+    ],
+    "System Maintenance": [
+      "Bug Fixes",
+      "System Updates",
+      "Security Updates",
+      "Database Maintenance",
+      "Performance Improvements",
+      "Other",
+    ],
+    "Technical Consultation": [
+      "System Architecture Advice",
+      "Technology Stack Selection",
+      "Project Planning",
+      "Code Review",
+      "Performance Strategy",
+      "Other",
+    ],
+    "Logo & Brand Design": [
+      "Logo Design",
+      "Logo Redesign",
+      "Full Brand Identity",
+      "Brand Color Palette",
+      "Typography Selection",
+      "Brand Style Guide",
+      "Other",
+    ],
+    "Digital Strategy Consulting": [
+      "Digital Transformation Planning",
+      "Business Automation Strategy",
+      "Online Growth Strategy",
+      "Product Validation Strategy",
+      "Startup Technology Strategy",
+      "Other",
+    ],
+    "Brand Identity & System Support": [
+      "Apply Brand Identity to Website",
+      "Create Branded Dashboards",
+      "Design Internal System",
+      "Maintain UI Consistency",
+      "Update Existing Brand Systems",
+      "Other",
+    ],
+    "Systems Editing & Optimization": [
+      "Improve Website Performance",
+      "Fix System Bugs",
+      "Improve UI/UX",
+      "Refactor Code",
+      "Database Optimization",
+      "SEO Optimization",
+      "Other",
+    ],
+    "Paid Online Research": [
+      "Market Research",
+      "Competitor Analysis",
+      "Software / Tool Comparison",
+      "Industry Trend Research",
+      "Startup Idea Validation",
+      "Business Opportunity Research",
+      "Other",
+    ],
+  };
+
+  // Prompts when "Other" is selected in specific service
+  const specificServiceOtherPrompts: Record<string, string> = {
+    "Website Development": "Please describe the type of website you need.",
+    "Web Application Development": "Please describe the web application you need.",
+    "System Maintenance": "Please describe the maintenance work you need.",
+    "Technical Consultation": "Please describe the consultation you need.",
+    "Logo & Brand Design": "Please describe the branding service you need.",
+    "Digital Strategy Consulting": "Please describe the strategy help you need.",
+    "Brand Identity & System Support": "Please describe the support you need.",
+    "Systems Editing & Optimization": "Please describe the system improvements you need.",
+    "Paid Online Research": "Please describe the research you need.",
+  };
+
+  // Budget ranges for each service – "Not sure yet" is now the last option.
+  const serviceBudgets: Record<string, string[]> = {
+    "Website Development": [
+      "KES 15,000 – 25,000",
+      "KES 25,000 – 50,000",
+      "KES 50,000 – 100,000",
+      "KES 100,000 – 200,000",
+      "KES 200,000+",
+      "Not sure yet",
+    ],
+    "Web Application Development": [
+      "KES 100,000 – 150,000",
+      "KES 150,000 – 300,000",
+      "KES 300,000 – 500,000",
+      "KES 500,000 – 1,000,000",
+      "KES 1,000,000+",
+      "Not sure yet",
+    ],
+    "System Maintenance": [
+      "KES 5,000 – 10,000",
+      "KES 10,000 – 20,000",
+      "KES 20,000 – 50,000",
+      "KES 50,000+",
+      "Not sure yet",
+    ],
+    "Technical Consultation": [
+      "KES 3,000 – 5,000",
+      "KES 5,000 – 10,000",
+      "KES 10,000 – 20,000",
+      "KES 20,000+",
+      "Not sure yet",
+    ],
+    "Logo & Brand Design": [
+      "KES 5,000 – 10,000",
+      "KES 10,000 – 20,000",
+      "KES 20,000 – 40,000",
+      "KES 40,000+",
+      "Not sure yet",
+    ],
+    "Digital Strategy Consulting": [
+      "KES 10,000 – 25,000",
+      "KES 25,000 – 50,000",
+      "KES 50,000 – 100,000",
+      "KES 100,000+",
+      "Not sure yet",
+    ],
+    "Brand Identity & System Support": [
+      "KES 20,000 – 50,000",
+      "KES 50,000 – 100,000",
+      "KES 100,000 – 200,000",
+      "KES 200,000+",
+      "Not sure yet",
+    ],
+    "Systems Editing & Optimization": [
+      "KES 10,000 – 25,000",
+      "KES 25,000 – 50,000",
+      "KES 50,000 – 100,000",
+      "KES 100,000+",
+      "Not sure yet",
+    ],
+    "Paid Online Research": [
+      "KES 2,000 – 5,000",
+      "KES 5,000 – 10,000",
+      "KES 10,000 – 20,000",
+      "KES 20,000+",
+      "Not sure yet",
+    ],
+  };
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const finalBudget =
-      formData.budget === "other" ? formData.otherBudget : formData.budget;
-
+    // Determine final service name
     const selectedService =
       formData.service === "other" ? formData.otherService : formData.service;
+
+    // Determine final specific service description
+    let finalSpecificService = formData.specificService;
+    if (formData.specificService === "Other") {
+      finalSpecificService = formData.specificServiceOther || "Other (no description)";
+    }
+
+    // Determine final budget string
+    let finalBudget = formData.budget;
+    if (formData.budget === "Not sure yet") {
+      finalBudget = formData.approximateBudget
+        ? `Approximate: ${formData.approximateBudget}`
+        : "Not sure yet (no amount)";
+    }
 
     const subject = encodeURIComponent("New Project Inquiry");
 
@@ -36,11 +214,14 @@ Email: ${formData.email}
 Service Interested In:
 ${selectedService}
 
-Budget:
-${finalBudget}
+Specific Service:
+${finalSpecificService}
 
 Project Description:
 ${formData.description}
+
+Budget:
+${finalBudget}
 `);
 
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -59,10 +240,13 @@ ${formData.description}
         name: "",
         email: "",
         service: "",
+        specificService: "",
+        specificServiceOther: "",
         otherService: "",
         description: "",
         budget: "",
         otherBudget: "",
+        approximateBudget: "",
       });
     }, 3000);
   };
@@ -72,10 +256,34 @@ ${formData.description}
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    // Special reset logic when main service changes
+    if (name === "service") {
+      setFormData((prev) => ({
+        ...prev,
+        service: value,
+        specificService: "",
+        specificServiceOther: "",
+        budget: "",
+        otherBudget: "",
+        approximateBudget: "",
+      }));
+      return;
+    }
+
+    // When specific service changes to/from "Other", clear the description if needed
+    if (name === "specificService") {
+      setFormData((prev) => ({
+        ...prev,
+        specificService: value,
+        specificServiceOther: value !== "Other" ? "" : prev.specificServiceOther,
+      }));
+      return;
+    }
+
+    // For all other fields
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -136,7 +344,7 @@ ${formData.description}
                   />
                 </div>
 
-                {/* SERVICE */}
+                {/* MAIN SERVICE */}
                 <div>
                   <label className="block text-sm text-[#4A525A] mb-2">
                     Service Interested In *
@@ -150,7 +358,7 @@ ${formData.description}
                   >
                     <option value="">Select a service</option>
                     <option value="Website Development">Website Development</option>
-                    <option value="Web App Development">Web Application Development</option>
+                    <option value="Web Application Development">Web Application Development</option>
                     <option value="System Maintenance">System Maintenance</option>
                     <option value="Technical Consultation">Technical Consultation</option>
                     <option value="Logo & Brand Design">Logo & Brand Design</option>
@@ -173,7 +381,46 @@ ${formData.description}
                   )}
                 </div>
 
-                {/* DESCRIPTION */}
+                {/* SPECIFIC SERVICE (conditional) */}
+                {formData.service &&
+                  formData.service !== "other" &&
+                  serviceExamples[formData.service] && (
+                    <div>
+                      <label className="block text-sm text-[#4A525A] mb-2">
+                        Specific Service
+                      </label>
+                      <select
+                        name="specificService"
+                        value={formData.specificService}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 focus:border-[#3F6C9B] focus:outline-none focus:ring-2 focus:ring-[#3F6C9B]/20"
+                      >
+                        <option value="">Select specific service</option>
+                        {serviceExamples[formData.service].map((item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* If "Other" is selected in specific service, show a text field */}
+                      {formData.specificService === "Other" && (
+                        <input
+                          type="text"
+                          name="specificServiceOther"
+                          value={formData.specificServiceOther}
+                          onChange={handleChange}
+                          placeholder={
+                            specificServiceOtherPrompts[formData.service] ||
+                            "Please describe the service you need."
+                          }
+                          className="mt-3 w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 focus:border-[#3F6C9B] focus:outline-none focus:ring-2 focus:ring-[#3F6C9B]/20"
+                        />
+                      )}
+                    </div>
+                  )}
+
+                {/* PROJECT DESCRIPTION */}
                 <div>
                   <label className="block text-sm text-[#4A525A] mb-2">
                     Project Description *
@@ -190,34 +437,40 @@ ${formData.description}
                 </div>
 
                 {/* BUDGET */}
-                <div>
-                  <label className="block text-sm text-[#4A525A] mb-2">Budget Range</label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 focus:border-[#3F6C9B] focus:outline-none focus:ring-2 focus:ring-[#3F6C9B]/20"
-                  >
-                    <option value="">Select budget range</option>
-                    <option value="KES 1 - 5,000">KES 1 - 5,000</option>
-                    <option value="KES 5,000 - 15,000">KES 5,000 - 15,000</option>
-                    <option value="KES 15,000 - 50,000">KES 15,000 - 50,000</option>
-                    <option value="KES 50,000 - 150,000">KES 50,000 - 150,000</option>
-                    <option value="KES 150,000+">KES 150,000+</option>
-                    <option value="other">Other</option>
-                  </select>
+                {formData.service &&
+                  formData.service !== "other" &&
+                  serviceBudgets[formData.service] && (
+                    <div>
+                      <label className="block text-sm text-[#4A525A] mb-2">
+                        Budget Range
+                      </label>
+                      <select
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 focus:border-[#3F6C9B] focus:outline-none focus:ring-2 focus:ring-[#3F6C9B]/20"
+                      >
+                        <option value="">Select budget range</option>
+                        {serviceBudgets[formData.service].map((item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
 
-                  {formData.budget === "other" && (
-                    <input
-                      type="text"
-                      name="otherBudget"
-                      value={formData.otherBudget}
-                      onChange={handleChange}
-                      placeholder="Enter your budget"
-                      className="mt-3 w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 focus:border-[#3F6C9B] focus:outline-none focus:ring-2 focus:ring-[#3F6C9B]/20"
-                    />
+                      {/* If "Not sure yet" is selected, ask for approximate budget */}
+                      {formData.budget === "Not sure yet" && (
+                        <input
+                          type="text"
+                          name="approximateBudget"
+                          value={formData.approximateBudget}
+                          onChange={handleChange}
+                          placeholder="Please provide an approximate budget you have in mind."
+                          className="mt-3 w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 focus:border-[#3F6C9B] focus:outline-none focus:ring-2 focus:ring-[#3F6C9B]/20"
+                        />
+                      )}
+                    </div>
                   )}
-                </div>
 
                 <button
                   type="submit"
@@ -230,7 +483,7 @@ ${formData.description}
             )}
           </div>
 
-          {/* CONTACT INFO */}
+          {/* CONTACT INFO (unchanged) */}
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl text-[#1F3A5F] mb-6 font-semibold">

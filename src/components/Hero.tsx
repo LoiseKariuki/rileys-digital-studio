@@ -39,22 +39,43 @@ export default function Hero() {
         className="mt-6 text-[28px] md:text-[36px] font-semibold text-[#3F6C9B]"
         style={{ fontFamily: "Inter, sans-serif" }}
       >
-        Crafting Solutions That Matter
+        Crafting Software Solutions That Matter
       </h2>
 
-      {/* Subtext */}
+      {/* Updated Subtext with Inline Links */}
       <p
         className="mt-6 max-w-3xl mx-auto text-[18px] md:text-[20px] font-normal text-[#7A838C] leading-relaxed"
         style={{ fontFamily: "Inter, sans-serif" }}
       >
-        Custom apps, websites, brand design, digital strategy, system
-        support, and paid online research.
+         Explore
+        our{" "}
+        <Link
+          href="/projects"
+          className="text-[#0f457f] font-medium hover:underline"
+        >
+          projects
+        </Link>{" "}
+        to see what we’ve built, discover our{" "}
+        <Link
+          href="/services"
+          className="text-[#0f457f] font-medium hover:underline"
+        >
+          services
+        </Link>{" "}
+        to learn how we can help your business, or{" "}
+        <Link
+          href="/contact"
+          className="text-[#0f457f] font-medium hover:underline"
+        >
+          contact us
+        </Link>{" "}
+        to get a personalized quote for your project.
       </p>
 
       {/* CTA Buttons */}
       <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
         <Link
-          href="#contact"
+          href="/contact"
           className="inline-block bg-[#1F3A5F] hover:bg-[#8FAFC8] text-white font-semibold text-[16px] px-10 py-4 rounded-full transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
           style={{ fontFamily: "Inter, sans-serif" }}
         >
@@ -62,7 +83,7 @@ export default function Hero() {
         </Link>
 
         <Link
-          href="#projects"
+          href="/projects"
           className="inline-block border border-[#1F3A5F] hover:bg-[#1F3A5F] hover:text-white text-[#1F3A5F] font-semibold text-[16px] px-10 py-4 rounded-full transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
           style={{ fontFamily: "Inter, sans-serif" }}
         >
