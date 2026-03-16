@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://rileys-digital-studio.vercel.app/</loc>
     <priority>1.0</priority>
   </url>
+
+  <!-- Projects page -->
   <url>
-    <loc>https://rileys-digital-studio.vercel.app/services</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://rileys-digital-studio.vercel.app/contact</loc>
+    <loc>https://rileys-digital-studio.vercel.app/projects</loc>
     <priority>0.8</priority>
   </url>
 </urlset>
