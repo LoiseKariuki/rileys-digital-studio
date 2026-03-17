@@ -57,14 +57,14 @@ export default function Hero() {
         </Link>{" "}
         to see what we’ve built, discover our{" "}
         <Link
-          href="/services"
+          href="/#services"
           className="text-[#0f457f] font-medium hover:underline"
         >
           services
         </Link>{" "}
         to learn how we can help your business, or{" "}
         <Link
-          href="/contact"
+          href="/#contact"
           className="text-[#0f457f] font-medium hover:underline"
         >
           contact us
@@ -75,7 +75,7 @@ export default function Hero() {
       {/* CTA Buttons */}
       <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
         <Link
-          href="/contact"
+          href="/#contact"
           className="inline-block bg-[#1F3A5F] hover:bg-[#8FAFC8] text-white font-semibold text-[16px] px-10 py-4 rounded-full transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
           style={{ fontFamily: "Inter, sans-serif" }}
         >
