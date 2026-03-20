@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X } from "lucide-react"; /* npm install lucide-react*/
+import { Menu, X } from "lucide-react"; /* npm install lucide-react */
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,6 +14,9 @@ export default function Header() {
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
   ];
+
+  const googleFormUrl =
+    "https://docs.google.com/forms/d/e/1FAIpQLScARuWV3g3TksroFER6Z1QtvJLFyXH2vwZm9JYhe0Vh93o5YA/viewform?embedded=true";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b bg-white">
@@ -56,9 +59,11 @@ export default function Header() {
             </Link>
           ))}
 
-          {/* CTA Button */}
+          {/* CTA Button - opens Google Form in new tab */}
           <Link
-            href="#contact"
+            href={googleFormUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#1F3A5F] hover:bg-[#3F6C9B] text-white font-semibold text-[14px] px-6 py-2.5 rounded-full transition-all duration-200"
             style={{ fontFamily: "Inter, sans-serif" }}
           >
@@ -95,8 +100,11 @@ export default function Header() {
               </Link>
             ))}
 
+            {/* Mobile CTA Button - opens Google Form */}
             <Link
-              href="#contact"
+              href={googleFormUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setIsMenuOpen(false)}
               className="bg-[#1F3A5F] hover:bg-[#3F6C9B] text-white font-semibold text-[14px] px-6 py-2.5 rounded-full transition-all duration-200 text-center"
               style={{ fontFamily: "Inter, sans-serif" }}

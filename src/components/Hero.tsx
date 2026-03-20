@@ -4,6 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Hero() {
+  const googleFormUrl =
+    "https://docs.google.com/forms/d/e/1FAIpQLScARuWV3g3TksroFER6Z1QtvJLFyXH2vwZm9JYhe0Vh93o5YA/viewform?embedded=true";
+
   return (
     <section className="min-h-screen relative flex flex-col items-center justify-center px-6 py-32 overflow-hidden text-center bg-white">
 
@@ -47,8 +50,7 @@ export default function Hero() {
         className="mt-6 max-w-3xl mx-auto text-[18px] md:text-[20px] font-normal text-[#7A838C] leading-relaxed"
         style={{ fontFamily: "Inter, sans-serif" }}
       >
-         Explore
-        our{" "}
+        Explore our{" "}
         <Link
           href="/projects"
           className="text-[#0f457f] font-medium hover:underline"
@@ -64,7 +66,9 @@ export default function Hero() {
         </Link>{" "}
         to learn how we can help your business, or{" "}
         <Link
-          href="/#contact"
+          href={googleFormUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-[#0f457f] font-medium hover:underline"
         >
           contact us
@@ -74,14 +78,18 @@ export default function Hero() {
 
       {/* CTA Buttons */}
       <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+        {/* Get a Quote - opens Google Form */}
         <Link
-          href="/#contact"
+          href={googleFormUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-block bg-[#1F3A5F] hover:bg-[#8FAFC8] text-white font-semibold text-[16px] px-10 py-4 rounded-full transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
           style={{ fontFamily: "Inter, sans-serif" }}
         >
           Get a Quote
         </Link>
 
+        {/* Our Portfolio */}
         <Link
           href="/projects"
           className="inline-block border border-[#1F3A5F] hover:bg-[#1F3A5F] hover:text-white text-[#1F3A5F] font-semibold text-[16px] px-10 py-4 rounded-full transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
